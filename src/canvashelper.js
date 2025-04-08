@@ -107,7 +107,7 @@ class CanvasHelper {
 
         // Convert each assignment for the API, only for assignments that are named
         const assignment_list = await assignments
-        .filter(assignment => typeof assignment.name !== 'undefined')
+        .filter(assignment => typeof assignment.name !== 'undefined' && assignment.due_at >= new Date().toJSON())
         .map((assignment) =>
             ({
                 "Assignment Name": {

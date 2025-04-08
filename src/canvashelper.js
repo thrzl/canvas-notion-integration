@@ -75,13 +75,13 @@ class CanvasHelper {
      */
     async getCourses() {
         // Canvas API connection
-        const domain = `${this.url}/api/v1/courses?access_token=${this.api}&per_page=100`
+        const domain = `${this.url}/api/v1/courses?access_token=${this.api}&per_page=100&enrollment_state=active`
         const response = await fetch(domain)
         const courses = await response.json()
 
         // Convert each course for API format, only courses that are currently active
         const courseList = await courses
-            .filter(course => typeof course.name !== 'undefined' && course.end_at > new Date().toJSON())
+            // .filter(course => typeof course.name !== 'undefined' && (course.end_at ? course.end_at > new Date().toJSON(): true))
             .map(course => ({
                 id: course.id.toString(),
                 name: course.name

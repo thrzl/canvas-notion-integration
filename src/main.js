@@ -23,9 +23,9 @@ async function checkDatabase() {
             database_id: NotionHelp.database
         })
         console.log('FOUND: Database exists! Retrieving database data...')
-        if (CanvasHelp.courses != courses) {
-            await NotionHelp.updateNotionDatabase(courses)
-        }
+        // if (CanvasHelp.courses !== courses) {
+        //     await NotionHelp.updateNotionDatabase(courses)
+        // }
         
     } catch (error) {
             console.log('NOT FOUND: Database does not exist! Creating new database...')
@@ -40,7 +40,7 @@ async function checkDatabase() {
  */
 async function checkPage(page, course) {
     try {
-        if ((await course).includes(await page.ID.number) == true) {
+        if ((await course).includes(await page.ID.number) === true) {
             console.log(`FOUND: Assignment ${page.ID.number} exists!`)
             await NotionHelp.updateNotionPage(page)
         }
@@ -64,11 +64,11 @@ async function getCoursesPages() {
             const assignments = await CanvasHelp.getCourseAssignments(courses[i].id, courses[i].name)
             const pages = assignments.concat(await CanvasHelp.getCourseDiscussions(courses[i].id, courses[i].name))
             const course_pages = await NotionHelp.getNotionPagesByCourse(courses[i])
-            for (let page of pages) {
+            for (const page of pages) {
                 await checkPage(page, course_pages)
             }
         }
-        console.log(`SUCCESS: all pages are updated or created!`)
+        console.log("SUCCESS: all pages are updated or created!")
     } catch(error) {
         console.log(`ERROR: getCoursesPages() did not run: ${error}`)
     }

@@ -14,7 +14,7 @@ class CanvasHelper {
     constructor() {
         this.url = process.env.CANVAS_API_URL
         this.api = process.env.CANVAS_API
-        this.user = this.getUserId()
+        // this.user = this.getUserId()
         this.courses = this.getCourses()
     }
 
@@ -34,13 +34,13 @@ class CanvasHelper {
         return this.api
     }
 
-    set user(user) {
-        this.user = user
-    }
+    // set user(user) {
+    //     this.user = user
+    // }
 
-    get user() {
-        return this.user
-    }
+    // get user() {
+    //     return this.user
+    // }
 
     set courses(courses) {
         this.courses = courses
@@ -57,9 +57,9 @@ class CanvasHelper {
     async getUserId() {
         // Connect to CanvasAPI
         const domain = `${this.url}/api/v1/courses?access_token=${this.api}`
-        console.log(domain)
         const response = await fetch(domain)
         const courses = await response.json()
+        console.log(courses)
 
         // Access first availible Course
         const course_option = await courses.filter(course => typeof course.name !== 'undefined')
@@ -100,7 +100,7 @@ class CanvasHelper {
      */
     async getCourseAssignments(courseID, courseName) {
         // Canvas API connection
-        const url = `${this.url}/api/v1/users/${await this.user}/courses/${courseID}/assignments?access_token=${this.api}&per_page=100`
+        const url = `${this.url}/api/v1/courses/${courseID}/assignments?access_token=${this.api}&per_page=100`
         const response = await fetch(url)
         const assignments = await response.json()
         //console.log(await assignments)

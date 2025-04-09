@@ -107,7 +107,7 @@ class CanvasHelper {
 
         // Convert each assignment for the API, only for assignments that are named
         const assignment_list = await assignments
-        .filter(assignment => typeof assignment.name !== 'undefined' && assignment.due_at >= new Date().toJSON())
+        .filter(assignment => typeof assignment.name !== 'undefined' && typeof assignment.due_at !== 'undefined' && assignment.due_at >= new Date().toJSON())
         .map((assignment) =>
             ({
                 "Assignment Name": {
@@ -119,7 +119,7 @@ class CanvasHelper {
                 },
                 "Due Date": {
                     type: "date",
-                    date: { start: assignment.due_at || '2020-09-10'}
+                    date: { start: assignment.due_at}
                 },
                 "Course": {
                     select: {
@@ -168,7 +168,7 @@ class CanvasHelper {
                 "Due Date": {
                     type: "date",
                     date: { 
-                        start: discussion.delayed_post_at || '2020-09-10',
+                        start: discussion.delayed_post_at,
                         end: discussion.lock_at,
                     }
                 },

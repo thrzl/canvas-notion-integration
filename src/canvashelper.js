@@ -100,7 +100,7 @@ class CanvasHelper {
      */
     async getCourseAssignments(courseID, courseName) {
         // Canvas API connection
-        const url = `${this.url}/api/v1/courses/${courseID}/assignments?access_token=${this.api}&per_page=100`
+        const url = `${this.url}/api/v1/courses/${courseID}/assignments?access_token=${this.api}&per_page=1000`
         const response = await fetch(url)
         const assignments = await response.json()
         //console.log(await assignments)

@@ -100,14 +100,14 @@ class CanvasHelper {
      */
     async getCourseAssignments(courseID, courseName) {
         // Canvas API connection
-        const url = `${this.url}/api/v1/courses/${courseID}/assignments?access_token=${this.api}&per_page=1000`
+        const url = `${this.url}/api/v1/courses/${courseID}/assignments?access_token=${this.api}&per_page=1000&bucket=future`
         const response = await fetch(url)
         const assignments = await response.json()
         //console.log(await assignments)
 
         // Convert each assignment for the API, only for assignments that are named
         const assignment_list = await assignments
-        .filter(assignment => typeof assignment.name !== 'undefined' && typeof assignment.due_at !== 'undefined' && assignment.due_at >= new Date().toJSON())
+        .filter(assignment => typeof assignment.name !== 'undefined' && typeof assignment.due_at !== 'undefined')
         .map((assignment) =>
             ({
                 "Assignment Name": {
